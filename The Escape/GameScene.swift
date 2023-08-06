@@ -29,6 +29,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Setup initial camera position
         updateCamera()
+        
+        // Настройка игрока
+        player = self.childNode(withName: "player") as? SKSpriteNode
+        
+        // Настройка зомби
+        for child in self.children {
+            if child.name == "zombie" {
+                if let child = child as? SKSpriteNode {
+                    zombies.append(child)
+                }
+            }
+        }
+        
+        // Настройка цели
+        goal = self.childNode(withName: "goal") as? SKSpriteNode
     }
     
     // MARK: Touch Handling
@@ -50,6 +65,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             lastTouch = touchLocation
         }
     }
+    
+    
     
     // MARK: Updates
     override func didSimulatePhysics() {
