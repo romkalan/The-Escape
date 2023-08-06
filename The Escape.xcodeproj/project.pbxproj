@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AD68B98C2A7E303A008D71BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD68B98B2A7E303A008D71BE /* AppDelegate.swift */; };
 		AD68B98E2A7E303A008D71BE /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AD68B98D2A7E303A008D71BE /* GameScene.sks */; };
-		AD68B9902A7E303A008D71BE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AD68B98F2A7E303A008D71BE /* Actions.sks */; };
 		AD68B9922A7E303A008D71BE /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD68B9912A7E303A008D71BE /* GameScene.swift */; };
 		AD68B9942A7E303A008D71BE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD68B9932A7E303A008D71BE /* GameViewController.swift */; };
 		AD68B9972A7E303A008D71BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD68B9952A7E303A008D71BE /* Main.storyboard */; };
@@ -20,13 +19,13 @@
 		AD68B9CA2A7E30EC008D71BE /* fear_wall.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD68B9C52A7E30EC008D71BE /* fear_wall.mp3 */; };
 		AD68B9CB2A7E30EC008D71BE /* fear_bg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD68B9C62A7E30EC008D71BE /* fear_bg.mp3 */; };
 		AD68B9CC2A7E30EC008D71BE /* fear_lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD68B9C72A7E30EC008D71BE /* fear_lose.mp3 */; };
+		AD68B9D12A7F940C008D71BE /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD68B9D02A7F940C008D71BE /* MenuScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AD68B9882A7E303A008D71BE /* The Escape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Escape.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD68B98B2A7E303A008D71BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD68B98D2A7E303A008D71BE /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		AD68B98F2A7E303A008D71BE /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		AD68B9912A7E303A008D71BE /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		AD68B9932A7E303A008D71BE /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		AD68B9962A7E303A008D71BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -37,6 +36,7 @@
 		AD68B9C52A7E30EC008D71BE /* fear_wall.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fear_wall.mp3; sourceTree = "<group>"; };
 		AD68B9C62A7E30EC008D71BE /* fear_bg.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fear_bg.mp3; sourceTree = "<group>"; };
 		AD68B9C72A7E30EC008D71BE /* fear_lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fear_lose.mp3; sourceTree = "<group>"; };
+		AD68B9D02A7F940C008D71BE /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,13 +71,11 @@
 			children = (
 				AD68B98B2A7E303A008D71BE /* AppDelegate.swift */,
 				AD68B98D2A7E303A008D71BE /* GameScene.sks */,
-				AD68B98F2A7E303A008D71BE /* Actions.sks */,
 				AD68B9912A7E303A008D71BE /* GameScene.swift */,
+				AD68B9D02A7F940C008D71BE /* MenuScene.swift */,
 				AD68B9932A7E303A008D71BE /* GameViewController.swift */,
-				AD68B9952A7E303A008D71BE /* Main.storyboard */,
-				AD68B9982A7E303B008D71BE /* Assets.xcassets */,
-				AD68B99A2A7E303B008D71BE /* LaunchScreen.storyboard */,
-				AD68B9CD2A7E30F3008D71BE /* Sounds */,
+				AD68B9CF2A7F91BC008D71BE /* Storyboards */,
+				AD68B9CE2A7F91AC008D71BE /* Assets */,
 			);
 			path = "The Escape";
 			sourceTree = "<group>";
@@ -92,6 +90,24 @@
 				AD68B9C42A7E30EC008D71BE /* fear_win.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		AD68B9CE2A7F91AC008D71BE /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				AD68B9982A7E303B008D71BE /* Assets.xcassets */,
+				AD68B9CD2A7E30F3008D71BE /* Sounds */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		AD68B9CF2A7F91BC008D71BE /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				AD68B9952A7E303A008D71BE /* Main.storyboard */,
+				AD68B99A2A7E303B008D71BE /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,7 +177,6 @@
 				AD68B9C92A7E30EC008D71BE /* fear_win.mp3 in Resources */,
 				AD68B9992A7E303B008D71BE /* Assets.xcassets in Resources */,
 				AD68B99C2A7E303B008D71BE /* LaunchScreen.storyboard in Resources */,
-				AD68B9902A7E303A008D71BE /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD68B9922A7E303A008D71BE /* GameScene.swift in Sources */,
+				AD68B9D12A7F940C008D71BE /* MenuScene.swift in Sources */,
 				AD68B9942A7E303A008D71BE /* GameViewController.swift in Sources */,
 				AD68B98C2A7E303A008D71BE /* AppDelegate.swift in Sources */,
 			);

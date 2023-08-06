@@ -30,6 +30,10 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
         }
     }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -42,4 +46,28 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
+    }
+}
+
+extension SKNode {
+  
+  class func unarchiveFromFile(file : String) -> SKNode? {
+      if let path = Bundle.main.path(forResource: file, ofType: "sks") {
+          let sceneData = try! NSData(contentsOfFile: path, options: .mappedIfSafe)
+          let archiver = try! NSKeyedUnarchiver(forReadingFrom: sceneData as Data)
+          
+      
+      archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
+          let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! GameScene
+      archiver.finishDecoding()
+      return scene
+    } else {
+      return nil
+    }
+  }
+  
 }

@@ -8,81 +8,148 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    // MARK: - Instance Variables
     
+    let playerSpeed: CGFloat = 150.0
+    let zombieSpeed: CGFloat = 75.0
+    
+    var goal: SKSpriteNode?
+    var player: SKSpriteNode?
+    var zombies: [SKSpriteNode] = []
+    
+    var lastTouch: CGPoint? = nil
+    
+    // MARK: - SKScene
     override func didMove(to view: SKView) {
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        // Setup physics world's contact delegate
+        physicsWorld.contactDelegate = self
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+        // Setup initial camera position
+        updateCamera()
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
+    // MARK: Touch Handling
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        handleTouches(touches: touches)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+        handleTouches(touches: touches)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        handleTouches(touches: touches)
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+    private func handleTouches(touches: Set<UITouch>) {
+        for touch in touches {
+            let touchLocation = touch.location(in: self)
+            lastTouch = touchLocation
+        }
+    }
+    
+    // MARK: Updates
+    override func didSimulatePhysics() {
+        if let _ = player {
+          updatePlayer()
+          updateZombies()
+        }
+    }
+    
+    // Determines if the player's position should be updated
+      private func shouldMove(currentPosition: CGPoint, touchPosition: CGPoint) -> Bool {
+      return abs(currentPosition.x - touchPosition.x) > player!.frame.width / 2 ||
+        abs(currentPosition.y - touchPosition.y) > player!.frame.height/2
+    }
+    
+    // Updates the player's position by moving towards the last touch made
+    func updatePlayer() {
+      if let touch = lastTouch {
+        let currentPosition = player!.position
+        if shouldMove(currentPosition: currentPosition, touchPosition: touch) {
+          
+            let angle = atan2(currentPosition.y - touch.y, currentPosition.x - touch.x) + CGFloat(Double.pi)
+            let rotateAction = SKAction.rotate(toAngle: angle + CGFloat(Double.pi * 0.5), duration: 0)
+          
+            player!.run(rotateAction)
+          
+          let velocotyX = playerSpeed * cos(angle)
+          let velocityY = playerSpeed * sin(angle)
+          
+          let newVelocity = CGVector(dx: velocotyX, dy: velocityY)
+          player!.physicsBody!.velocity = newVelocity;
+          updateCamera()
+        } else {
+            player!.physicsBody!.isResting = true
+        }
+      }
+    }
+    
+    func updateCamera() {
+      if let camera = camera {
+        camera.position = CGPoint(x: player!.position.x, y: player!.position.y)
+      }
+    }
+    
+    // Updates the position of all zombies by moving towards the player
+    func updateZombies() {
+      let targetPosition = player!.position
+      
+      for zombie in zombies {
+        let currentPosition = zombie.position
+        
+        let angle = atan2(currentPosition.y - targetPosition.y, currentPosition.x - targetPosition.x) + CGFloat(Double.pi)
+          let rotateAction = SKAction.rotate(toAngle: angle + CGFloat(Double.pi*0.5), duration: 0.0)
+          zombie.run(rotateAction)
+        
+        let velocotyX = zombieSpeed * cos(angle)
+        let velocityY = zombieSpeed * sin(angle)
+        
+        let newVelocity = CGVector(dx: velocotyX, dy: velocityY)
+        zombie.physicsBody!.velocity = newVelocity;
+      }
+    }
+    
+    // MARK: - SKPhysicsContactDelegate
+    func didBeginContact(contact: SKPhysicsContact) {
+      // 1. Create local variables for two physics bodies
+      var firstBody: SKPhysicsBody
+      var secondBody: SKPhysicsBody
+      
+      // 2. Assign the two physics bodies so that the one with the lower category is always stored in firstBody
+      if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+        firstBody = contact.bodyA
+        secondBody = contact.bodyB
+      } else {
+        firstBody = contact.bodyB
+        secondBody = contact.bodyA
+      }
+      
+      // 3. react to the contact between the two nodes
+      if firstBody.categoryBitMask == player?.physicsBody?.categoryBitMask &&
+        secondBody.categoryBitMask == zombies[0].physicsBody?.categoryBitMask {
+          // Player & Zombie
+          gameOver(didWin: false)
+      } else if firstBody.categoryBitMask == player?.physicsBody?.categoryBitMask &&
+        secondBody.categoryBitMask == goal?.physicsBody?.categoryBitMask {
+          // Player & Goal
+          gameOver(didWin: true)
+      }
     }
     
     
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+    // MARK: Helper Functions
+    
+    private func gameOver(didWin: Bool) {
+      print("- - - Game Ended - - -")
+      let menuScene = MenuScene(size: self.size)
+      menuScene.soundToPlay = didWin ? "fear_win.mp3" : "fear_lose.mp3"
+        let transition = SKTransition.flipVertical(withDuration: 1.0)
+        menuScene.scaleMode = SKSceneScaleMode.aspectFill
+      self.scene!.view?.presentScene(menuScene, transition: transition)
     }
+    
 }
