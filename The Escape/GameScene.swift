@@ -32,11 +32,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Настройка игрока
         player = self.childNode(withName: "player") as? SKSpriteNode
+        // Настройка игрока как слушателя звуков
+        self.listener = player
         
         // Настройка зомби
         for child in self.children {
             if child.name == "zombie" {
                 if let child = child as? SKSpriteNode {
+                    let audioNode: SKAudioNode = SKAudioNode(fileNamed: "fear_moan.wav")
+                    child.addChild(audioNode)
                     zombies.append(child)
                 }
             }
@@ -153,7 +157,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if bodyA.categoryBitMask == player?.physicsBody?.categoryBitMask &&
                         bodyB.categoryBitMask == goal?.physicsBody?.categoryBitMask {
                 // Player & Goal
-                print("yeah mf")
                 gameOver(didWin: true)
             }
     }
@@ -167,5 +170,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         menuScene.scaleMode = SKSceneScaleMode.aspectFill
         self.scene!.view?.presentScene(menuScene, transition: transition)
     }
-    
 }
