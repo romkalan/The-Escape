@@ -106,9 +106,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func updateCamera() {
-      if let camera = camera {
-        camera.position = CGPoint(x: player!.position.x, y: player!.position.y)
-      }
+        guard let camera = camera else { return }
+        guard let player = player else { return }
+        camera.position = CGPoint(x: player.position.x, y: player.position.y)
     }
     
     // Updates the position of all zombies by moving towards the player
