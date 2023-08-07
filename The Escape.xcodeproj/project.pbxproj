@@ -20,6 +20,8 @@
 		AD68B9CB2A7E30EC008D71BE /* fear_bg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD68B9C62A7E30EC008D71BE /* fear_bg.mp3 */; };
 		AD68B9CC2A7E30EC008D71BE /* fear_lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD68B9C72A7E30EC008D71BE /* fear_lose.mp3 */; };
 		AD68B9D12A7F940C008D71BE /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD68B9D02A7F940C008D71BE /* MenuScene.swift */; };
+		AD68B9D32A8159BE008D71BE /* Wall.sks in Resources */ = {isa = PBXBuildFile; fileRef = AD68B9D22A8159BE008D71BE /* Wall.sks */; };
+		AD68B9D52A815B15008D71BE /* Room.sks in Resources */ = {isa = PBXBuildFile; fileRef = AD68B9D42A815B15008D71BE /* Room.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		AD68B9C62A7E30EC008D71BE /* fear_bg.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fear_bg.mp3; sourceTree = "<group>"; };
 		AD68B9C72A7E30EC008D71BE /* fear_lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fear_lose.mp3; sourceTree = "<group>"; };
 		AD68B9D02A7F940C008D71BE /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		AD68B9D22A8159BE008D71BE /* Wall.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Wall.sks; sourceTree = "<group>"; };
+		AD68B9D42A815B15008D71BE /* Room.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Room.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,8 @@
 			children = (
 				AD68B98B2A7E303A008D71BE /* AppDelegate.swift */,
 				AD68B98D2A7E303A008D71BE /* GameScene.sks */,
+				AD68B9D22A8159BE008D71BE /* Wall.sks */,
+				AD68B9D42A815B15008D71BE /* Room.sks */,
 				AD68B9912A7E303A008D71BE /* GameScene.swift */,
 				AD68B9D02A7F940C008D71BE /* MenuScene.swift */,
 				AD68B9932A7E303A008D71BE /* GameViewController.swift */,
@@ -171,6 +177,8 @@
 				AD68B9CA2A7E30EC008D71BE /* fear_wall.mp3 in Resources */,
 				AD68B9972A7E303A008D71BE /* Main.storyboard in Resources */,
 				AD68B9C82A7E30EC008D71BE /* fear_moan.wav in Resources */,
+				AD68B9D52A815B15008D71BE /* Room.sks in Resources */,
+				AD68B9D32A8159BE008D71BE /* Wall.sks in Resources */,
 				AD68B9CC2A7E30EC008D71BE /* fear_lose.mp3 in Resources */,
 				AD68B9CB2A7E30EC008D71BE /* fear_bg.mp3 in Resources */,
 				AD68B98E2A7E303A008D71BE /* GameScene.sks in Resources */,

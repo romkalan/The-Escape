@@ -131,42 +131,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // MARK: - SKPhysicsContactDelegate
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
       // 1. Create local variables for two physics bodies
-      var firstBody: SKPhysicsBody
-      var secondBody: SKPhysicsBody
+      var bodyA: SKPhysicsBody
+      var bodyB: SKPhysicsBody
       
       // 2. Assign the two physics bodies so that the one with the lower category is always stored in firstBody
       if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-        firstBody = contact.bodyA
-        secondBody = contact.bodyB
+        bodyA = contact.bodyA
+        bodyB = contact.bodyB
       } else {
-        firstBody = contact.bodyB
-        secondBody = contact.bodyA
+        bodyA = contact.bodyB
+        bodyB = contact.bodyA
       }
       
       // 3. react to the contact between the two nodes
-      if firstBody.categoryBitMask == player?.physicsBody?.categoryBitMask &&
-        secondBody.categoryBitMask == zombies[0].physicsBody?.categoryBitMask {
-          // Player & Zombie
-          gameOver(didWin: false)
-      } else if firstBody.categoryBitMask == player?.physicsBody?.categoryBitMask &&
-        secondBody.categoryBitMask == goal?.physicsBody?.categoryBitMask {
-          // Player & Goal
-          gameOver(didWin: true)
-      }
+            if bodyA.categoryBitMask == player?.physicsBody?.categoryBitMask &&
+                bodyB.categoryBitMask == zombies[0].physicsBody?.categoryBitMask {
+                // Player & Zombie
+                gameOver(didWin: false)
+            } else if bodyA.categoryBitMask == player?.physicsBody?.categoryBitMask &&
+                        bodyB.categoryBitMask == goal?.physicsBody?.categoryBitMask {
+                // Player & Goal
+                print("yeah mf")
+                gameOver(didWin: true)
+            }
     }
     
     
     // MARK: Helper Functions
-    
     private func gameOver(didWin: Bool) {
-      print("- - - Game Ended - - -")
-      let menuScene = MenuScene(size: self.size)
-      menuScene.soundToPlay = didWin ? "fear_win.mp3" : "fear_lose.mp3"
+        let menuScene = MenuScene(size: self.size)
+        menuScene.soundToPlay = didWin ? "fear_win.mp3" : "fear_lose.mp3"
         let transition = SKTransition.flipVertical(withDuration: 1.0)
         menuScene.scaleMode = SKSceneScaleMode.aspectFill
-      self.scene!.view?.presentScene(menuScene, transition: transition)
+        self.scene!.view?.presentScene(menuScene, transition: transition)
     }
     
 }
