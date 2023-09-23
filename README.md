@@ -2,8 +2,8 @@
 
 This is training app-game on SpriteKit from other opensource project
 
-In this game you can shoot in the direction of the vector with touch on screen and destroy the enemies 
+In this game you must escape a space with zombies trying to catch you 
 
-There i use touches methods and work with vector direction
+There i use touches methods and work with camera
 
 ## Records
